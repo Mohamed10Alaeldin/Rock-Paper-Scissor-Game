@@ -1,3 +1,9 @@
+''' 
+Rock beats Scissor
+Scissor beats paper
+paper beats Rock
+'''
+
 import random
 from tkinter import *
 from PIL import Image, ImageTk
@@ -8,80 +14,85 @@ window.title("Rock Paper Scissor Game")
 window.resizable(0,0)
 
 def computer_Value():
-    value =  random.choice(['Rock', 'Paper', 'Scissor'])
-    if value == "Rock":
-        button4.config(bg="red")
-    if value == "Paper":
-    	button5.config(bg="red")
-    if value == "Scissor":
-    	button6.config(bg="red")
-    
-    return value
+	com_choice = random.choice(['Rock', 'Paper', 'Scissor'])
+	if com_choice == "Rock":
+		rock_pic.config(bg="red")
+	elif com_choice =="Paper":
+		paper_pic.config(bg="red")
+	else:
+		scissor_pic.config(bg="red")
+	return com_choice
 
 def button_disable():
-	button1["state"] = "disable"
-	button2["state"] = "disable"
-	button3["state"] = "disable"
+	# make the buttons unclickable
+	rock_btn["state"] = "disable"
+	paper_btn["state"] = "disable"
+	scissor_btn["state"] = "disable"
 
 def again():
-	button1["state"] = "active"
-	button2["state"] = "active"
-	button3["state"] = "active"
-	button1.config(bg = "#f0f0f0")
-	button2.config(bg = "#f0f0f0")
-	button3.config(bg = "#f0f0f0")
-	button4.config(bg="#f0f0f0")
-	button5.config(bg="#f0f0f0")
-	button6.config(bg="#f0f0f0")
-	l4.config(text="")
+	rock_btn["state"] = "active"
+	paper_btn["state"] = "active"
+	scissor_btn["state"] = "active"
+	# return all buttons to their original color
+	rock_btn.config(bg = "#f0f0f0")
+	paper_btn.config(bg = "#f0f0f0")
+	scissor_btn.config(bg = "#f0f0f0")
+	rock_pic.config(bg="#f0f0f0")
+	paper_pic.config(bg="#f0f0f0")
+	scissor_pic.config(bg="#f0f0f0")
+	# reset the result board
+	result.config(text="")
 	
 def reset():
+	# call again function
 	again()
-	score_com.config(text = "0")
-	score_player1.config(text = "0")
+	# reset the counters
+	com_score.config(text = "0")
+	player_score.config(text = "0")
 
 def isRock():
-	button1.config(bg="blue")
-	c_v = computer_Value()
-	if c_v == "Rock":
+	rock_btn.config(bg="blue")
+	com_choice = computer_Value()
+	if com_choice == "Rock":
 		match_result = "Tie"
-	elif c_v == "Scissor":
+	elif com_choice == "Scissor":
 		match_result = "You Win"
-		score_player1.config(text = str(int(score_player1.cget("text")) + 1))
+		player_score.config(text = str(int(player_score.cget("text")) + 1))
 	else:
 		match_result = "Com Win"
-		score_com.config(text = str(int(score_com.cget("text")) + 1))
-	l4.config(text=match_result)
+		com_score.config(text = str(int(com_score.cget("text")) + 1))
+	# print the match_result
+	result.config(text=match_result)
 	button_disable()
 	
 def isPaper():
-	button2.config(bg="blue")
-	c_v = computer_Value()
-	if c_v == "Rock":
+	paper_btn.config(bg="blue")
+	com_choice = computer_Value()
+	if com_choice == "Rock":
 		match_result = "You Win"
-		score_player1.config(text = str(int(score_player1.cget("text")) + 1))
-	elif c_v == "Scissor":
+		player_score.config(text = str(int(player_score.cget("text")) + 1))
+	elif com_choice == "Scissor":
 		match_result = "Com Win"
-		score_com.config(text = str(int(score_com.cget("text")) + 1))
+		com_score.config(text = str(int(com_score.cget("text")) + 1))
 	else:
 		match_result = "Tie"
-	l4.config(text=match_result)
+	result.config(text=match_result)
 	button_disable()
 
 def isScissor():
-	button3.config(bg="blue")
-	c_v = computer_Value()
-	if c_v == "Rock":
+	scissor_btn.config(bg="blue")
+	com_choice = computer_Value()
+	if com_choice == "Rock":
 		match_result = "Com Win"
-		score_com.config(text = str(int(score_com.cget("text")) + 1))
-	elif c_v == "Scissor":
+		com_score.config(text = str(int(com_score.cget("text")) + 1))
+	elif com_choice == "Scissor":
 		match_result = "Tie"
 	else:
 		match_result = "You Win"
-		score_player1.config(text = str(int(score_player1.cget("text")) + 1))
-	l4.config(text=match_result)
+		player_score.config(text = str(int(player_score.cget("text")) + 1))
+	result.config(text=match_result)
 	button_disable()
-
+# first label contains the Game Title
 Label(window,
 	text="Rock Paper Scissor",
 	borderwidth=5,
@@ -92,23 +103,39 @@ Label(window,
 
 frame = Frame(window)
 frame.pack()
-
-l1 = Label(frame,
-		text="Player1",
-		borderwidth=2,relief="solid",
+# hold player name
+player_label = Label(frame,
+		text="Player",
+		borderwidth=2,
+		relief="solid",
         bg="blue",
 		padx=5,
 		font=10)
-score_player1 = Label(frame,text="0",bg="white",width=5,height=2,borderwidth=1,relief="solid")
 
-l2 = Label(frame,
+player_score = Label(
+	frame,
+	text="0",
+	bg="white",
+	width=5,
+	height=2,
+	borderwidth=1,
+	relief="solid")
+
+vs_label = Label(frame,
 		text="VS",
 		fg ="#FF7F00",
 		font=("Times",25,"bold"))
+      
+com_score = Label(
+	frame,
+	text="0",
+	bg="white",
+	width=5,
+	height=2,
+	borderwidth=1,
+	relief="solid")
 
-        
-score_com = Label(frame,text="0",bg="white",width=5,height=2,borderwidth=1,relief="solid")
-l3 = Label(frame,
+com_label = Label(frame,
         text="Com",
 		borderwidth=2,
 		relief="solid",
@@ -117,7 +144,7 @@ l3 = Label(frame,
 		width=20,
         font=10)
 
-l4 = Label(window,
+result = Label(window,
 		text="",
 		font="normal 15 bold",
 		bg="white",
@@ -126,47 +153,58 @@ l4 = Label(window,
 		borderwidth=2,
 		relief="solid")
 
-l1.pack(side=LEFT,pady=0,padx=5)
-score_player1.pack(side=LEFT)
-l2.pack(side=LEFT,pady=0,padx=35)
-score_com.pack(side=LEFT)
-l3.pack(side=LEFT,pady=0,padx=5)
-l4.pack(pady=10)
+# place the widgets
+player_label.pack(side=LEFT,pady=0,padx=10)
+player_score.pack(side=LEFT)
+vs_label.pack(side=LEFT,pady=0,padx=35)
+com_score.pack(side=LEFT)
+com_label.pack(side=LEFT,pady=0,padx=5)
+result.pack(pady=10)
 
-#Rock_Button
+# ----- Player clickable Buttons --------- #
+# resize the image to fit in button
 img = ImageTk.PhotoImage(Image.open("rock.png").resize((70, 70)))
-button1 = Button(window, image=img ,command=isRock)
-button1.place(x=10, y=135)
+# Rock_Button
+rock_btn = Button(window, image = img, command = isRock)
+rock_btn.place(x = 10, y = 135)
 
 img2 = ImageTk.PhotoImage(Image.open("paper.png").resize((70, 70)))
-button2 = Button(window, image=img2 , command=isPaper)
-button2.place(x=10, y=215)
+# Paper button
+paper_btn = Button(window, image = img2, command = isPaper)
+paper_btn.place(x = 10, y = 215)
 
 img3 = ImageTk.PhotoImage(Image.open("scissor.png").resize((70, 70)))
-button3 = Button(window, image=img3,command=isScissor)
-button3.place(x=10, y=295)
+# Scissor button
+scissor_btn = Button(window, image = img3, command = isScissor)
+scissor_btn.place(x=10, y=295)
 
-revers_img = ImageTk.PhotoImage(Image.open("rock.png").rotate(180).resize((70, 70)))
-button4 = Button(window,image=revers_img,state="disabled")
-button4.place(x=325, y=135)
+# ------------- Unclickable Buttons (just images hhhh) ------ #
+reverse_img = ImageTk.PhotoImage(Image.open("rock.png").rotate(180).resize((70, 70)))
+rock_pic = Button(window, image = reverse_img, state="disabled")
+rock_pic.place(x=325, y=135)
 
-revers_img2 = ImageTk.PhotoImage(Image.open("paper.png").rotate(180).resize((70, 70)))
-button5 = Button(window,image=revers_img2,state="disabled")
-button5.place(x=325, y=215)
+reverse_img2 = ImageTk.PhotoImage(Image.open("paper.png").rotate(180).resize((70, 70)))
+paper_pic = Button(window,image=reverse_img2,state="disabled")
+paper_pic.place(x=325, y=215)
 
-revers_img3 = ImageTk.PhotoImage(Image.open("scissor.png").rotate(180).resize((70, 70)))
-button6 = Button(window,image=revers_img3,state="disabled")
-button6.place(x=325, y=295)
+reverse_img3 = ImageTk.PhotoImage(Image.open("scissor.png").rotate(180).resize((70, 70)))
+scissor_pic = Button(window,image=reverse_img3,state="disabled")
+scissor_pic.place(x=325, y=295)
 
-
-
-again_button = Button(window, text="Play Again",
-	font=10, fg="white",
+# play again button
+Button(window,
+	text="Play Again",
+	font=10,
+	fg="white",
 	bg="#007FFF",
 	width=10,
-	command = again).pack(pady=20)
-Button(window, text="reset",
-	font=10, fg="white",
+	command = again).pack(pady=10)
+
+# reset button
+Button(window,
+	text="Reset",
+	font=10,
+	fg="white",
 	bg="#E3CF57",
 	width=10,
 	command = reset).pack()
