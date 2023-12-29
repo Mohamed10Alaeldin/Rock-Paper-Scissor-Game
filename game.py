@@ -1,114 +1,160 @@
 ''' 
+Game Rules:
 Rock beats Scissor
 Scissor beats paper
 paper beats Rock
 '''
-
-import random
+import random # randomly choice for computer
 from tkinter import *
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk #this library to deal with images
+import pygame # to deal with sounds
 
 window = Tk()
-window.geometry("400x400+650-400")
+window.geometry("410x430+650-400")
 window.title("Rock Paper Scissor Game")
 window.resizable(0,0)
+pygame.mixer.init() # initialise the pygame 
+
+# ---------- The Images -----------
+rock_img = ImageTk.PhotoImage(Image.open("./Images/rock.png").resize((70, 70)))
+paper_img = ImageTk.PhotoImage(Image.open("./Images/paper.png").resize((70, 70)))
+scissor_img = ImageTk.PhotoImage(Image.open("./Images/scissor.png").resize((70, 70)))
+
+reverse_rock_img = ImageTk.PhotoImage(Image.open("./Images/rock.png").rotate(180).resize((70, 70)))
+reverse_paper_img = ImageTk.PhotoImage(Image.open("./Images/paper.png").rotate(180).resize((70, 70)))
+reverse_scissor_img = ImageTk.PhotoImage(Image.open("./Images/scissor.png").rotate(180).resize((70, 70)))
+
+win_img=ImageTk.PhotoImage(Image.open("./Images/win.png").resize((150,150)))
+lose_img=ImageTk.PhotoImage(Image.open("./Images/lose.png").resize((150,150)))
+tie_img=ImageTk.PhotoImage(Image.open("./Images/tie.png").resize((150,150)))
+play_img=ImageTk.PhotoImage(Image.open("./Images/start.png").resize((150,150)))
+
+# ------------ Voices ------------------#
+def winVoice():
+	pygame.mixer.music.load("./Sounds/winvoice.mp3")
+	pygame.mixer.music.play(loops=0)
+
+def loseVoice():
+	pygame.mixer.music.load("./sounds/losevoice.mp3")
+	pygame.mixer.music.play(loops=0)
+
+def tieVoice():
+	pygame.mixer.music.load("./sounds/draw.mp3")
+	pygame.mixer.music.play(loops=0)
+
 
 def computer_Value():
 	com_choice = random.choice(['Rock', 'Paper', 'Scissor'])
 	if com_choice == "Rock":
-		rock_pic.config(bg="red")
+		rock_label.config(bg="red")
 	elif com_choice =="Paper":
-		paper_pic.config(bg="red")
+		paper_label.config(bg="red")
 	else:
-		scissor_pic.config(bg="red")
+		scissor_label.config(bg="red")
 	return com_choice
 
 def button_disable():
-	# make the buttons unclickable
 	rock_btn["state"] = "disable"
 	paper_btn["state"] = "disable"
 	scissor_btn["state"] = "disable"
 
-def again():
-	rock_btn["state"] = "active"
-	paper_btn["state"] = "active"
-	scissor_btn["state"] = "active"
-	# return all buttons to their original color
-	rock_btn.config(bg = "#f0f0f0")
-	paper_btn.config(bg = "#f0f0f0")
-	scissor_btn.config(bg = "#f0f0f0")
-	rock_pic.config(bg="#f0f0f0")
-	paper_pic.config(bg="#f0f0f0")
-	scissor_pic.config(bg="#f0f0f0")
-	# reset the result board
-	result.config(text="")
-	
-def reset():
-	# call again function
-	again()
-	# reset the counters
-	com_score.config(text = "0")
-	player_score.config(text = "0")
-
+# ----------Buttons command------------ #
 def isRock():
 	rock_btn.config(bg="blue")
 	com_choice = computer_Value()
 	if com_choice == "Rock":
-		match_result = "Tie"
+		result.config(image=tie_img)
+		tieVoice()
+
 	elif com_choice == "Scissor":
-		match_result = "You Win"
+		result.config(image=win_img)
 		player_score.config(text = str(int(player_score.cget("text")) + 1))
+		winVoice()
+
 	else:
-		match_result = "Com Win"
+		result.config(image=lose_img)
 		com_score.config(text = str(int(com_score.cget("text")) + 1))
-	# print the match_result
-	result.config(text=match_result)
+		loseVoice()	
+
 	button_disable()
 	
 def isPaper():
 	paper_btn.config(bg="blue")
 	com_choice = computer_Value()
 	if com_choice == "Rock":
-		match_result = "You Win"
+		result.config(image=win_img)
 		player_score.config(text = str(int(player_score.cget("text")) + 1))
+		winVoice()
+
 	elif com_choice == "Scissor":
-		match_result = "Com Win"
+		result.config(image=lose_img)
 		com_score.config(text = str(int(com_score.cget("text")) + 1))
+		loseVoice()
+
 	else:
-		match_result = "Tie"
-	result.config(text=match_result)
+		result.config(image=tie_img)
+		tieVoice()
+
 	button_disable()
 
 def isScissor():
 	scissor_btn.config(bg="blue")
 	com_choice = computer_Value()
 	if com_choice == "Rock":
-		match_result = "Com Win"
 		com_score.config(text = str(int(com_score.cget("text")) + 1))
+		result.config(image=lose_img)
+		loseVoice()
+
 	elif com_choice == "Scissor":
-		match_result = "Tie"
+		result.config(image=tie_img)
+		tieVoice()
+
 	else:
-		match_result = "You Win"
+		result.config(image=win_img)
 		player_score.config(text = str(int(player_score.cget("text")) + 1))
-	result.config(text=match_result)
+		winVoice()
+
 	button_disable()
-# first label contains the Game Title
+
+def play_again():
+	rock_btn["state"] = "active"
+	paper_btn["state"] = "active"
+	scissor_btn["state"] = "active"
+	# return all buttons and labels to their original color
+	rock_btn.config(bg = "#f0f0f0")
+	paper_btn.config(bg = "#f0f0f0")
+	scissor_btn.config(bg = "#f0f0f0")
+	rock_label.config(bg="#f0f0f0")
+	paper_label.config(bg="#f0f0f0")
+	scissor_label.config(bg="#f0f0f0")
+	# reset the result board
+	result.config(image = play_img)
+	
+def reset():
+	# call play_again function
+	play_again()
+	# reset the counters
+	com_score.config(text = "0")
+	player_score.config(text = "0")
+	
+# Game Title
 Label(window,
 	text="Rock Paper Scissor",
 	borderwidth=5,
+	bg="#482944",
 	relief="solid",
 	padx=10,
 	font="normal 20 bold",
-	fg="#76EE00").pack(pady=20)
+	fg="orange").pack(pady=20)
 
 frame = Frame(window)
 frame.pack()
-# hold player name
 player_label = Label(frame,
 		text="Player",
 		borderwidth=2,
 		relief="solid",
         bg="blue",
+		fg="white",
 		padx=5,
 		font=10)
 
@@ -116,6 +162,7 @@ player_score = Label(
 	frame,
 	text="0",
 	bg="white",
+	fg="blue",
 	width=5,
 	height=2,
 	borderwidth=1,
@@ -130,6 +177,7 @@ com_score = Label(
 	frame,
 	text="0",
 	bg="white",
+	fg="red",
 	width=5,
 	height=2,
 	borderwidth=1,
@@ -139,57 +187,44 @@ com_label = Label(frame,
         text="Com",
 		borderwidth=2,
 		relief="solid",
+		fg="white",
         bg="red",
 		padx=5,
-		width=20,
+		width=6,
         font=10)
-
-result = Label(window,
-		text="",
-		font="normal 15 bold",
-		bg="white",
-		width=10,
-        height=3,
-		borderwidth=2,
-		relief="solid")
+# Result board
+result = Label(window, image=play_img)
 
 # place the widgets
-player_label.pack(side=LEFT,pady=0,padx=10)
+player_label.pack(side=LEFT,padx=10)
 player_score.pack(side=LEFT)
-vs_label.pack(side=LEFT,pady=0,padx=35)
+vs_label.pack(side=LEFT,padx=35)
 com_score.pack(side=LEFT)
-com_label.pack(side=LEFT,pady=0,padx=5)
+com_label.pack(side=LEFT,padx=5)
 result.pack(pady=10)
 
 # ----- Player clickable Buttons --------- #
-# resize the image to fit in button
-img = ImageTk.PhotoImage(Image.open("rock.png").resize((70, 70)))
 # Rock_Button
-rock_btn = Button(window, image = img, command = isRock)
+rock_btn = Button(window, image = rock_img, command = isRock)
 rock_btn.place(x = 10, y = 135)
 
-img2 = ImageTk.PhotoImage(Image.open("paper.png").resize((70, 70)))
 # Paper button
-paper_btn = Button(window, image = img2, command = isPaper)
+paper_btn = Button(window, image = paper_img, command = isPaper)
 paper_btn.place(x = 10, y = 215)
 
-img3 = ImageTk.PhotoImage(Image.open("scissor.png").resize((70, 70)))
 # Scissor button
-scissor_btn = Button(window, image = img3, command = isScissor)
+scissor_btn = Button(window, image = scissor_img, command = isScissor)
 scissor_btn.place(x=10, y=295)
 
-# ------------- Unclickable Buttons (just images hhhh) ------ #
-reverse_img = ImageTk.PhotoImage(Image.open("rock.png").rotate(180).resize((70, 70)))
-rock_pic = Button(window, image = reverse_img, state="disabled")
-rock_pic.place(x=325, y=135)
+# Computer unclickable pictures
+rock_label = Label(window, image = reverse_rock_img)
+rock_label.place(x=325, y=135)
 
-reverse_img2 = ImageTk.PhotoImage(Image.open("paper.png").rotate(180).resize((70, 70)))
-paper_pic = Button(window,image=reverse_img2,state="disabled")
-paper_pic.place(x=325, y=215)
+paper_label = Label(window, image = reverse_paper_img)
+paper_label.place(x=325, y=215)
 
-reverse_img3 = ImageTk.PhotoImage(Image.open("scissor.png").rotate(180).resize((70, 70)))
-scissor_pic = Button(window,image=reverse_img3,state="disabled")
-scissor_pic.place(x=325, y=295)
+scissor_label = Label(window, image = reverse_scissor_img)
+scissor_label.place(x=325, y=295)
 
 # play again button
 Button(window,
@@ -198,7 +233,7 @@ Button(window,
 	fg="white",
 	bg="#007FFF",
 	width=10,
-	command = again).pack(pady=10)
+	command = play_again).pack(pady=10)
 
 # reset button
 Button(window,
