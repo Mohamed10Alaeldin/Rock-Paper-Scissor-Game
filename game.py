@@ -13,6 +13,7 @@ window = Tk()
 window.geometry("410x430+650-400")
 window.title("Rock Paper Scissor Game")
 window.resizable(0,0)
+window.config(bg="black")
 pygame.mixer.init() # initialise the pygame 
 
 # ---------- The Images -----------
@@ -143,17 +144,19 @@ Label(window,
 	padx=10,
 	fg="white",
 	relief="solid",
-	bg="orange",
+	bg="#F77A05",
 	font="system 20 bold").pack(pady=20)
 
 
 frame = Frame(window)
+frame.config(bg="black")
 frame.pack()
 player_label = Label(frame,
 		text="Player",
 		padx=5,
 		relief = "ridge", 
-		fg = "#1E90FF",
+		fg = "#fff",
+		bg = "#1E90FF",
 		width=6,
 		font=10)
 
@@ -168,12 +171,13 @@ player_score = Label(
 
 vs_label = Label(frame,
 		fg = "#EE2C2C",
+		bg = "black",
 		text="VS",
 		font=("Times",25,"bold"))
       
 com_score = Label(
 	frame,
-	bg = "#FF3030",
+	bg = "#ff0000",
 	fg = "white",
 	text="0",
 	relief = "ridge", 
@@ -181,7 +185,8 @@ com_score = Label(
 	height=2)
 
 com_label = Label(frame,
-		fg = "#FF3030",
+		fg = "#fff",
+		bg = "#ff0000",
 		relief = "ridge", 
         text="Com",
 		width=6,
@@ -223,7 +228,8 @@ scissor_label.place(x=325, y=295)
 # play again button
 Button(window,
 	text="Play Again",
-	bg="#FFD700",
+	fg = "#fff",
+	bg="#F77A05",
 	font=10,
 	width=10,
 	command = play_again).pack(pady=10)
@@ -231,7 +237,8 @@ Button(window,
 # reset button
 Button(window,
 	text="Reset",
-	bg = "#4876FF",
+	fg = "#fff",
+	bg = "#F77A05",
 	font=10,
 	width=10,
 	command = reset).pack()
