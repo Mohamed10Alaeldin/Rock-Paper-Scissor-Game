@@ -26,7 +26,7 @@ also you need to install some libraries like pygame and PIL
 ## Usage
 1. Run the game.py file using Python.
 2. A GUI window will appear with start game picture.
-- ![image](https://github.com/Mohamed10Alaeldin/Rock-Scissor-Paper-Game/assets/99670636/af0ea024-33a4-4d58-bc48-83aa830616c7)
+- ![image](https://github.com/Mohamed10Alaeldin/Rock-Scissor-Paper-Game/assets/99670636/64ea8a0d-91fc-4e62-bb77-06f66e068ecd)
 3. Click one of the buttons to the left to start.
 4. The button you click colored with blue and the computer choice colored with red.
 5. The result appear in result board.
