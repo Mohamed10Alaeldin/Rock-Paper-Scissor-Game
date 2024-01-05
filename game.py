@@ -13,7 +13,7 @@ window = Tk()
 window.geometry("410x430+650-400")
 window.title("Rock Paper Scissor Game")
 window.resizable(0,0)
-window.config(bg="black")
+window.config(bg="#282829")
 pygame.mixer.init() # initialise the pygame 
 
 # ---------- The Images -----------
@@ -149,7 +149,7 @@ Label(window,
 
 
 frame = Frame(window)
-frame.config(bg="black")
+frame.config(bg="#282829")
 frame.pack()
 player_label = Label(frame,
 		text="Player",
@@ -171,7 +171,7 @@ player_score = Label(
 
 vs_label = Label(frame,
 		fg = "#EE2C2C",
-		bg = "black",
+		bg = "#282829",
 		text="VS",
 		font=("Times",25,"bold"))
       
