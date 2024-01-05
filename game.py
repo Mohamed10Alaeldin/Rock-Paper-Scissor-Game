@@ -6,6 +6,7 @@ paper beats Rock
 '''
 import random # randomly choice for computer
 from tkinter import *
+from tkinter.font import Font
 from PIL import Image, ImageTk #this library to deal with images
 import pygame # to deal with sounds
 
@@ -20,11 +21,11 @@ rock_img = ImageTk.PhotoImage(Image.open("./Images/rock.png").resize((70, 70)))
 paper_img = ImageTk.PhotoImage(Image.open("./Images/paper.png").resize((70, 70)))
 scissor_img = ImageTk.PhotoImage(Image.open("./Images/scissor.png").resize((70, 70)))
 
-reverse_rock_img = ImageTk.PhotoImage(Image.open("./Images/rock.png").rotate(180).resize((70, 70)))
-reverse_paper_img = ImageTk.PhotoImage(Image.open("./Images/paper.png").rotate(180).resize((70, 70)))
-reverse_scissor_img = ImageTk.PhotoImage(Image.open("./Images/scissor.png").rotate(180).resize((70, 70)))
+reverse_rock_img = ImageTk.PhotoImage(Image.open("./Images/rock.png").transpose(Image.FLIP_LEFT_RIGHT).resize((70, 70)))
+reverse_paper_img = ImageTk.PhotoImage(Image.open("./Images/paper.png").transpose(Image.FLIP_LEFT_RIGHT).resize((70, 70)))
+reverse_scissor_img = ImageTk.PhotoImage(Image.open("./Images/scissor.png").transpose(Image.FLIP_LEFT_RIGHT).resize((70, 70)))
 
-win_img=ImageTk.PhotoImage(Image.open("./Images/win.png").resize((150,150)))
+win_img=ImageTk.PhotoImage(Image.open("./Images/win.png").resize((160,160)))
 lose_img=ImageTk.PhotoImage(Image.open("./Images/lose.png").resize((150,150)))
 tie_img=ImageTk.PhotoImage(Image.open("./Images/tie.png").resize((150,150)))
 play_img=ImageTk.PhotoImage(Image.open("./Images/start.png").resize((150,150)))
@@ -140,56 +141,50 @@ def reset():
 # Game Title
 Label(window,
 	text="Rock Paper Scissor",
-	borderwidth=5,
-	bg="#482944",
-	relief="solid",
 	padx=10,
-	font="normal 20 bold",
-	fg="orange").pack(pady=20)
+	fg="white",
+	relief="solid",
+	bg="orange",
+	font="system 20 bold").pack(pady=20)
+
 
 frame = Frame(window)
 frame.pack()
 player_label = Label(frame,
 		text="Player",
-		borderwidth=2,
-		relief="solid",
-        bg="blue",
-		fg="white",
 		padx=5,
+		relief = "ridge", 
+		fg = "#1E90FF",
+		width=6,
 		font=10)
 
 player_score = Label(
 	frame,
+	bg = "#1E90FF",
+	fg = "white",
+	relief = "ridge", 
 	text="0",
-	bg="white",
-	fg="blue",
 	width=5,
-	height=2,
-	borderwidth=1,
-	relief="solid")
+	height=2)
 
 vs_label = Label(frame,
+		fg = "#EE2C2C",
 		text="VS",
-		fg ="#FF7F00",
 		font=("Times",25,"bold"))
       
 com_score = Label(
 	frame,
+	bg = "#FF3030",
+	fg = "white",
 	text="0",
-	bg="white",
-	fg="red",
+	relief = "ridge", 
 	width=5,
-	height=2,
-	borderwidth=1,
-	relief="solid")
+	height=2)
 
 com_label = Label(frame,
+		fg = "#FF3030",
+		relief = "ridge", 
         text="Com",
-		borderwidth=2,
-		relief="solid",
-		fg="white",
-        bg="red",
-		padx=5,
 		width=6,
         font=10)
 # Result board
@@ -200,20 +195,20 @@ player_label.pack(side=LEFT,padx=10)
 player_score.pack(side=LEFT)
 vs_label.pack(side=LEFT,padx=35)
 com_score.pack(side=LEFT)
-com_label.pack(side=LEFT,padx=5)
+com_label.pack(side=LEFT,padx=10)
 result.pack(pady=10)
 
 # ----- Player clickable Buttons --------- #
 # Rock_Button
-rock_btn = Button(window, image = rock_img, command = isRock)
+rock_btn = Button(window, image = rock_img, relief="solid", command = isRock)
 rock_btn.place(x = 10, y = 135)
 
 # Paper button
-paper_btn = Button(window, image = paper_img, command = isPaper)
+paper_btn = Button(window, image = paper_img, relief="solid", command = isPaper)
 paper_btn.place(x = 10, y = 215)
 
 # Scissor button
-scissor_btn = Button(window, image = scissor_img, command = isScissor)
+scissor_btn = Button(window, image = scissor_img, relief="solid", command = isScissor)
 scissor_btn.place(x=10, y=295)
 
 # Computer unclickable pictures
@@ -229,18 +224,16 @@ scissor_label.place(x=325, y=295)
 # play again button
 Button(window,
 	text="Play Again",
+	bg="#FFD700",
 	font=10,
-	fg="white",
-	bg="#007FFF",
 	width=10,
 	command = play_again).pack(pady=10)
 
 # reset button
 Button(window,
 	text="Reset",
+	bg = "#4876FF",
 	font=10,
-	fg="white",
-	bg="#E3CF57",
 	width=10,
 	command = reset).pack()
 
