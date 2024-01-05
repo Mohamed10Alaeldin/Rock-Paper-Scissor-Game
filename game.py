@@ -6,7 +6,6 @@ paper beats Rock
 '''
 import random # randomly choice for computer
 from tkinter import *
-from tkinter.font import Font
 from PIL import Image, ImageTk #this library to deal with images
 import pygame # to deal with sounds
 
@@ -25,7 +24,7 @@ reverse_rock_img = ImageTk.PhotoImage(Image.open("./Images/rock.png").transpose(
 reverse_paper_img = ImageTk.PhotoImage(Image.open("./Images/paper.png").transpose(Image.FLIP_LEFT_RIGHT).resize((70, 70)))
 reverse_scissor_img = ImageTk.PhotoImage(Image.open("./Images/scissor.png").transpose(Image.FLIP_LEFT_RIGHT).resize((70, 70)))
 
-win_img=ImageTk.PhotoImage(Image.open("./Images/win.png").resize((160,160)))
+win_img=ImageTk.PhotoImage(Image.open("./Images/win.png").resize((150,150)))
 lose_img=ImageTk.PhotoImage(Image.open("./Images/lose.png").resize((150,150)))
 tie_img=ImageTk.PhotoImage(Image.open("./Images/tie.png").resize((150,150)))
 play_img=ImageTk.PhotoImage(Image.open("./Images/start.png").resize((150,150)))
