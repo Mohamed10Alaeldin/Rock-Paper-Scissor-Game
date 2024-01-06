@@ -46,11 +46,11 @@ def winVoice():
 	pygame.mixer.music.play(loops=0)
 
 def loseVoice():
-	pygame.mixer.music.load("./sounds/losevoice.mp3")
+	pygame.mixer.music.load("./Sounds/losevoice.mp3")
 	pygame.mixer.music.play(loops=0)
 
 def tieVoice():
-	pygame.mixer.music.load("./sounds/draw.mp3")
+	pygame.mixer.music.load("./Sounds/draw.mp3")
 	pygame.mixer.music.play(loops=0)
 
 
