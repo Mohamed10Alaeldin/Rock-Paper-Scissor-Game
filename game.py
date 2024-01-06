@@ -1,20 +1,29 @@
 ''' 
 Game Rules:
-Rock beats Scissor
+Rock beats scissor
 Scissor beats paper
-paper beats Rock
+Paper beats rock
 '''
-import random # randomly choice for computer
-from tkinter import *
-from PIL import Image, ImageTk #this library to deal with images
-import pygame # to deal with sounds
+import random # this library to deal with computer choices randomly
+from tkinter import * # this library to deal with GUI
+from PIL import Image, ImageTk # this library to deal with images
 
+''' If you delete these two lines below the welcoming messagge from Pygame community will appear on console.
+pygame 2.5.2 (SDL 2.28.3, Python 3.11.1)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+so i hide it with 'PYGAME_HIDE_SUPPORT_PROMPT' equal to any value
+'''
+from os import environ
+environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '3'
+
+import pygame # this library to deal with sounds
+
+#  Main Window
 window = Tk()
 window.geometry("410x430+650-400")
 window.title("Rock Paper Scissor Game")
 window.resizable(0,0)
 window.config(bg="#282829")
-pygame.mixer.init() # initialise the pygame 
 
 # ---------- The Images -----------
 rock_img = ImageTk.PhotoImage(Image.open("./Images/rock.png").resize((70, 70)))
@@ -31,6 +40,7 @@ tie_img=ImageTk.PhotoImage(Image.open("./Images/tie.png").resize((150,150)))
 play_img=ImageTk.PhotoImage(Image.open("./Images/start.png").resize((150,150)))
 
 # ------------ Voices ------------------#
+pygame.mixer.init() # initialise the pygame 
 def winVoice():
 	pygame.mixer.music.load("./Sounds/winvoice.mp3")
 	pygame.mixer.music.play(loops=0)
@@ -147,8 +157,7 @@ Label(window,
 	bg="#F77A05",
 	font="system 20 bold").pack(pady=20)
 
-
-frame = Frame(window)
+frame = Frame(window) 
 frame.config(bg="#282829")
 frame.pack()
 player_label = Label(frame,
