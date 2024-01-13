@@ -33,3 +33,6 @@ also you need to install some libraries like pygame and PIL
 6. The winner's score increment by one.
 7. Click the "Play again" button to start another game with old result.
 8. Click the "Reset" button to start a new game.
+
+## Contributers
+* [Husam Mohamed](https://github.com/husamXA1)
